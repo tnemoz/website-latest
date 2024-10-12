@@ -1,0 +1,20 @@
+.publications-container {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  column-gap: .5rem;
+  row-gap: 0px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.publications-first-column {
+  grid-column: 1;
+  word-wrap: break-word;
+  overflow: hidden;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.publications-first-row {
+  margin-top: 1.2rem;
+}

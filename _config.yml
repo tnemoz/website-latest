@@ -152,9 +152,6 @@ paginate: 10
 # The base URL of your site
 baseurl: "/tnemoz"
 
-plugins:
-  - jekyll-tabs
-
 # ------------ The following options are not recommended to be modified ------------------
 
 kramdown:
@@ -173,6 +170,8 @@ collections:
   tabs:
     output: true
     sort_by: order
+  publications:
+    output: false
 
 defaults:
   - scope:

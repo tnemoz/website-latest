@@ -1,0 +1,74 @@
+\newcounter{num}
+\newcommand{\tictactoe}[1]
+    {
+    \begin{tikzpicture}[line width=2pt]
+        \def\r{3mm}
+            \tikzset{
+                    circ/.pic={\draw circle (\r);},
+                    cross/.pic={\draw (-\r,-\r) -- (\r,\r) (-\r,\r) -- (\r,-\r);},
+                    opt/.pic={\draw[opacity=0.2] (-\r,-\r) -- (\r,\r) (-\r,\r) -- (\r,-\r);}
+                    }
+            
+            % The grid
+            \foreach \i in {1,2} \draw (\i,0) -- (\i,3) (0,\i) -- (3,\i);
+            
+            % Numbering the cells
+            \setcounter{num}{0}
+            \foreach \y in {0,...,2}
+                \foreach \x in {0,...,2}
+                    {
+                    \coordinate (\thenum) at (\x+0.5,2-\y+0.5);
+                    %\node[opacity=0.5] at (\thenum) {\sffamily\thenum}; % Uncomment to see numbers in the cells
+                    \addtocounter{num}{1}
+                    }
+                    
+                    
+        \def\X{X} \def\x{x} \def\O{O} \def\n{n}
+        
+        \foreach \l [count = \i from 0] in {#1}
+            {
+            \if\l\X \path (\i) pic{cross};
+            \else
+                \if\l\O \path (\i) pic{circ};
+                \else
+                    \if\l\x \path (\i) pic{opt};
+                    \else
+                        \if\l\n \node[opacity=0.5] at (\i) {\sffamily\i};
+                        \fi
+                    \fi
+                \fi
+            \fi
+            }
+    \end{tikzpicture}
+    }
+
+\begin{document}
+    \begin{tikzpicture}[color=font, draw=font]
+        \node (root) at (0, 0) {\tictactoe{,O,,
+               ,X,,
+               ,,}};
+        \node (state1) at (-7.5, -5) {\tictactoe{X,O,,
+               ,X,,
+               ,,}};
+        \node (state2) at (-2.5, -5) {\tictactoe{,O,,
+               X,X,,
+               ,,}};
+        \node (state3) at (2.5, -5) {\tictactoe{,O,,
+               ,X,,
+               X,,}};
+        \node (state4) at (7.5, -5) {\tictactoe{,O,,
+               ,X,,
+               ,X,}};
+
+        \draw[->] (root) -- (state1) node[midway, fill=background]{$+\infty$};
+        \draw[->] (root) -- (state2) node[midway, fill=background]{$1$};
+        \draw[->] (root) -- (state3) node[midway, fill=background]{$+\infty$};
+        \draw[->] (root) -- (state4) node[midway, fill=background]{$+\infty$};
+
+        \node[anchor=west] (rootlabel) at (root.east) {$\begin{array}{c}v=-1\\n=1\end{array}$};
+        \node[anchor=north] (state1label) at (state1.south) {$\begin{array}{c}N=1\\v=0\\n=0\end{array}$};
+        \node[anchor=north] (state2label) at (state2.south) {$\begin{array}{c}N=1\\v=1\\n=1\end{array}$};
+        \node[anchor=north] (state3label) at (state3.south) {$\begin{array}{c}N=1\\v=0\\n=0\end{array}$};
+        \node[anchor=north] (state4label) at (state4.south) {$\begin{array}{c}N=1\\v=0\\n=0\end{array}$};
+    \end{tikzpicture}
+\end{document}

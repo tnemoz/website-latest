@@ -494,24 +494,9 @@ I've also added a `__repr__` method to better visualize the state computed by th
 
 A small remark on the `get_winner` function: you may wonder why we don't check for a win for the current player. The reason for that is that chess, along with many board games, has this nice property that it isn't possible for a player to win by a move of its adversary. Thus, since a game state always represents the position as seen by the player who is to play it, it isn't possible to start in a position where the last move made us won! This is clearly a negligible optimization, but on more complex games with this property, this could prove useful.
 
-<!-- add stylesheet via CDN: -->
-<link rel="stylesheet"
-      href="https://unpkg.com/@chrisoakman/chessboard2@0.5.0/dist/chessboard2.min.css"
-      integrity="sha384-47VeTDpmy4yT21gKPXQcLQYQZwlmz27gEH5NTrOmTk3G/SGvMyltclOW/Q8uE+sL"
-      crossorigin="anonymous">
-
-<!-- add JS via CDN: -->
-<script src="https://unpkg.com/@chrisoakman/chessboard2@0.5.0/dist/chessboard2.min.js"
-        integrity="sha384-/KwQCjA1GWovZNV3QDVtvSMDzO4reGgarF/RqHipr7hIUElH3r5zNl9WEPPOBRIF"
-        crossorigin="anonymous"></script>
-<div id="myBoard" style="width: 50%, margin: 0 auto"></div>
-<script>
-    const ruyLopez = 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R'
-    const board = Chessboard2('myBoard', ruyLopez)
-</script>
-
 And we're done! For instance, let us consider the following position, which is checkmate in 2 for white:
 ![Checkmate in 2 for white. FEN: r2qkb1r/pp2nppp/3p4/2pNN1B1/2BnP3/3P4/PPP2PPP/R2bK2R w KQkq - 1 0](matein2.svg){: width="100%" }
+
 In order to get what our AI predicts to be the best move, here's  the code we would write:
 ```python
 from math import sqrt
@@ -522,7 +507,7 @@ from game_state_chess import GameStateChess
 from mcts import MCTS
 
 initial_board = Board(fen="r2qkb1r/pp2nppp/3p4/2pNN1B1/2BnP3/3P4/PPP2PPP/R2bK2R w KQkq - 1 0")
-mcts_player = MCTS(GameStateChess(initial_board), sqrt(2), 100)
+mcts_player = MCTS(GameStateChess(initial_board), sqrt(2), 800)
 action = mcts_player.decide(advance=False)
 print(action)
 

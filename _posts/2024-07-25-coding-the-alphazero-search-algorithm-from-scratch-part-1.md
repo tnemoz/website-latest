@@ -8,7 +8,6 @@ tags:
 math: true
 series: AlphaZero
 media_subpath: /assets/img/posts/AlphaZero1/
-folder_name: Coding the AlphaZero search algorithm from scratch - Part 1
 short_title: Presentation of the MCTS algorithm
 index_in_series: 1
 date: 2024-07-25 20:24 +0200
@@ -119,4 +118,4 @@ It depends on how frequently these events happen. A possibility that we'll use i
 
 However, if these random events are frequent, then the number of simulations that you perform may not be sufficiently large to accurately represent the average value of a node. Putting it differently, the variance you'll have in this estimation will be too high to be useful in practice.
 
-Now that that's said, let's move on to implementing this algorithm for a simple game: Tic-Tac-Toe!
+Now that that's said, let's move on to implementing this algorithm for a well-known game: chess!

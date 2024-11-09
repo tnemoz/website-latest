@@ -376,7 +376,7 @@ We then went to add a `transition` function that will take an `Action` as argume
         self.root_state.transition(action)
 ```
 {: file='mcts.py' .nolineno }
-> The reason why we're setting the new Node's parent to `None` is that we don't keep any reference to what's above the new `Node` is that tree. This allows Python to garbage collect them, so that the associated memory is free. For debugging reasons, you might want to comment out this line so that you can inspect the whole tree.
+> The reason why we're setting the new Node's parent to `None` is so that we don't keep any reference to what's above the new `Node` is that tree. This allows Python to garbage collect them, so that the associated memory is free. For debugging reasons, you might want to comment out this line so that you can inspect the whole tree.
 {: .prompt-info }
 
 > Note that this is where we need to have `__eq__` and/or `__hash__` defined for an `Action`: so that the `index` method can look for a given `Action`.
@@ -409,7 +409,7 @@ We now want to fetch the index of the child having the largest visit counts. Onc
 ```
 {: file='mcts.py' .nolineno }
 
-Finally, if `advance` is set to `True`, we want to change the `root` along with the player associated to it. In all cases, we return the action to take. All i all, this is the final implementation of the `decide` method:
+Finally, if `advance` is set to `True`, we want to change the `root` along with the player associated to it. In all cases, we return the action to take. All in all, this is the final implementation of the `decide` method:
 ```python
     def decide(self: Self, advance: bool = True) -> Optional[Action]:
         """Decide the next move to be played.

@@ -421,7 +421,7 @@ Finally, if `advance` is set to `True`, we want to change the `root` along with 
         :param advance: If set to True, in addition to returning the best action, the root will be
           set to the child corresponding to this action.
         """
-        for _ in trange(self.n_simulations):
+        for _ in range(self.n_simulations):
             node = self.root
             node, state = node.select_child(deepcopy(self.root_state))
             node, state = node.expand(state)

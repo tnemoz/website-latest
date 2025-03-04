@@ -1,0 +1,10 @@
+\begin{document}
+\begin{tikzpicture}[color=font, draw=font]
+    \node[draw, shape=circle] (0) at (-1,0) {0};
+    \node[draw, shape=circle] (1) at (0,0) {1};
+    \node[draw, shape=circle] (2) at (1,0) {2};
+
+    \draw[thick] (0) -- (1);
+    \draw[thick] (1) -- (2);
+\end{tikzpicture}
+\end{document}

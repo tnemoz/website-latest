@@ -1,0 +1,7 @@
+\begin{document}
+\begin{quantikz}[background color=background, color=font]
+	\qw & \ctrl{2} & \targ{} & \qw & \qw\\
+	\qw & \qw & \ctrl{-1} & \ctrl{1} & \qw\\
+	\qw & \targ{} & \qw & \targ{} & \qw
+\end{quantikz}
+\end{document}

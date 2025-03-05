@@ -31,7 +31,7 @@ Finally, we will denote $\Pi_{d, t}$ the density matrix of $t$-copies of a Haar 
 
 $$\begin{equation}\Pi_{d, t}\overset{\text{def}}{=}\int_{U\in\mathcal{U}(d)}\left(U\selfinner{0}U^\dagger\right)^{\otimes t}\,\mathrm{d}\mu(U)\end{equation}$$
 
-with $\mu$ being the Haar measure on $\mathcal{U}(d)$, the set of $d\times d$ unitary matrices. Our ultimate goal is to compute the trace distance between $\rho_{d, t, P}$ and $\Pi_{d, t}$. If these two are close even for a large number of copies like $\Omega\\!\left(\sqrt{d}\right)$, it would mean that the set of phase states is an Asymptotically Random State, as defined [here, in Definition 8](https://arxiv.org/abs/1906.10611). This in turn means that we could simply replace the random functions by a quantum-secure pseudorandom one, and voilà! We've got ourselves a PRS, [using which you can do cryptography](https://arxiv.org/abs/2112.10020).
+with $\mu$ being the Haar measure on $\mathcal{U}(d)$, the set of $d\times d$ unitary matrices. Our ultimate goal is to compute the trace distance between $\rho_{d, t, P}$ and $\Pi_{d, t}$. If these two are close even for a large number of copies like $\Omega\\!\left(\sqrt{d}\right)$, it would mean that the set of phase states is an Asymptotically Random State, as defined [here, in Definition 8](https://arxiv.org/abs/1906.10611). This in turn means that we could simply replace the random functions by a quantum-secure pseudorandom one, and voilà! We've got ourselves a PRS, [using which one can do cryptography](https://arxiv.org/abs/2112.10020).
 
 We are now ready to give a bit more info on the introduction, and to talk about the bounds that were previously derived for the $P=2$ case, that is, the binary phases one.
 
@@ -100,7 +100,7 @@ and since we have $\langle\mathcal{C}(x)\|\mathcal{C}(y)\rangle\neq0\iff x\sim y
 
 $$\begin{equation}\label{eq:spectral-decomposition-equivalence}\sigma = \sum_{z\in[d^t]_{/\sim}}\alpha_{\mathcal{C}(z)}|\mathcal{C}(z)|\,\selfinner{\mathcal{C}(z)}\,.\end{equation}$$
 
-Let us now apply this to $\rho_{d, t, 2}$, and then to the other phase states!
+Let us now apply this to $\rho_{d, t, 2}$!
 
 ## The binary phases state
 ### Computing the density matrix
@@ -143,12 +143,132 @@ This process can generate, for a given $x\in[d]^t$, all the elements $y$ that ar
 
 Another thing we can notice is that $\|\mathcal{C}(x)\|$ will only depend on the **length** of its identifier. This can be seen by the fact that the elements in $[d]$ can play symmetric roles: for instance, for any tuple in $\mathcal{C}(x)$, we can generate exactly one tuple belonging in the equivalence class identified by $\\{0, 1\\}$ be replacing $2$ by $1$ and vice-versa. In particular, there's a bijection between these two finite sets, meaning that they have the same size.
 
-So, let us start by fixing some natural number $k\leqslant t$, and let us count the number of elements in an equivalence class uniquely identified by $k$ elements. Note that $k$ necessarily has the same parity as $t$. Indeed, suppose that $k$ is odd for instance. Since it counts the number of unique elements that appear an odd number of times, it necessarily means that the number of these elements is odd in any tuple. But now, all the other elements must appear an even number of times, which necessarily means that $t$ must be odd. Similarly, if $k$ is even, then so must be $t$.
+So, let us start by fixing some natural number $k\leqslant t$, and let us count the number of tuples in an equivalence class uniquely identified by $k$ elements. Note that $k$ necessarily has the same parity as $t$. Indeed, suppose that $k$ is odd for instance. Since it counts the number of unique elements that appear an odd number of times, it necessarily means that the number of these elements is odd in any tuple. But now, all the other elements must appear an even number of times, which necessarily means that $t$ must be odd. Similarly, if $k$ is even, then so must be $t$. So, let us redefine $k$ to be lower than or equal to $\left\lfloor\frac{t}{2}\right\rfloor$, and let us count the number of tuples in an equivalence class uniquely identified by $2k+b$ elements, with $b$ being the parity of $t$, meaning that $b=0$ if $t$ is even, and $b=1$ otherwise.
 
-Without loss of generality, let us assume that the elements from $[k]$ appear an odd number of times, while the others appear an even number of times.
+Without loss of generality, let us assume that the elements from $[2k+b]$ appear an odd number of times, while the others appear an even number of times. One way to count these tuples is the following: we first choose how many times does $0$ appear, how many times $1$ appear, etc... with the constraint that all elements from $0$ to $2k+b-1$ included must appear an odd number of times. Let us denote $y_{i+1}$ the number of times $i$ appears in the tuple. The sum over the $y_i$ must also equal $t$. And finally, we must count the number of unique permutations of this tuple, which is $\frac{t!}{\prod_iy_i!}$. All in all, the eigenvalue associated to this equivalence class is
+
+$$\begin{equation}\lambda_{d, t, 2k+b}=\frac{1}{d^t}\sum_{\substack{y_1,\cdots,y_{d}\\y_{1},\cdots,y_{2k+b}\text{ odd}\\y_{2k+b+1},\cdots,y_d\text{ even}\\\sum\limits_iy_i=t}}\frac{t!}{\prod\limits_iy_i!}\,.\end{equation}$$
+
+Of course, the question now becomes: can we simplify this monstrosity a bit? Well, it turns out we (more or less) can using Newtown's multinomial formula! The computations are just tedious, so feel free to directly go to the final expression in Equation \eqref{eq:eigvalbin}.
+
+Still there? Let's go on then :D
+
+Let us define $S_i$ and $T_i$ to be
+
+$$\begin{align}
+S_i\left(x_1,\cdots,x_d\right) &= \sum_{\substack{y_1,\cdots,y_{d}\\y_{d-i+1},\cdots,y_{d}\text{ even}\\\sum\limits_iy_i=t}}t!\prod_i\frac{x_i^{y_i}}{y_i!}\,,\\
+T_i\left(x_1,\cdots,x_d\right) &= \sum_{\substack{y_1,\cdots,y_{d}\\y_{d-i+2},\cdots,y_{d}\text{ even}\\y_{d-i+1}\text{ odd}\\\sum\limits_iy_i=t}}t!\prod_i\frac{x_i^{y_i}}{y_i!}\,.\\
+\end{align}$$
+
+Note that we have
+
+$$\begin{align}
+S_i\left(x_1,\cdots,x_d\right)+T_i\left(x_1,\cdots,x_d\right) &= S_{i-1}\left(x_1,\cdots,x_d\right)\,,\\
+S_i\left(x_1,\cdots,x_d\right)-T_i\left(x_1,\cdots,x_d\right) &= S_{i-1}\left(x_1,\cdots,-x_{d-i+1},\cdots,x_d\right)\,.
+\end{align}$$
+
+This gives us
+
+$$\begin{equation}S_i\left(x_1,\cdots,x_d\right)=\frac{1}{2}S_{i-1}\left(x_1,\cdots,x_d\right)+\frac{1}{2}S_{i-1}\left(x_1,\cdots,-x_{d-i+1},\cdots,x_d\right)\end{equation}$$
+
+and thus
+
+$$\begin{equation}\label{eq:tprimei0}S_i\left(x_1,\cdots,x_d\right)=\frac{1}{2^i}\sum_{j\in\{0, 1\}^i}S_0\left(x_1,\cdots,x_{d-i},(-1)^{j_1}x_{d-i+1},\cdots,(-1)^{j_i}x_d\right)\end{equation}$$
+
+with
+
+$$\begin{equation}S_0\left(x_1,\cdots,x_d\right)=\left(\sum_ix_i\right)^t\end{equation}$$
+
+by Newton's multinomial formula. Let us now define $S'\_{i,j}$ and $T'\_{i,j}$ to be
+
+$$\begin{align}
+S'_{i,j}\left(x_1,\cdots,x_d\right)&=\sum_{\substack{y_1,\cdots,y_d\\y_{d-i-j+1}\text{ even}\\y_{d-i-j+2},\cdots,y_{d-i}\text{ odd}\\y_{d-i+1},\cdots,y_d\text{ even}\\\sum\limits_iy_i=t}}t!\prod_i\frac{x_i^{y_i}}{y_i!}\\
+T'_{i,j}\left(x_1,\cdots,x_d\right)&=\sum_{\substack{y_1,\cdots,y_d\\y_{d-i-j+1},\cdots,y_{d-i}\text{ odd}\\y_{d-i+1},\cdots,y_d\text{ even}\\\sum\limits_iy_i=t}}t!\prod_i\frac{x_i^{y_i}}{y_i!}
+\end{align}$$
+
+with $S'\_{i, 0}=T'\_{i,0}=S_i$. We then have
+
+$$\begin{align}
+S'_{i,j}\left(x_1,\cdots,x_d\right)+T'_{i,j}\left(x_1\cdots,x_d\right)&=T'_{i,j-1}\left(x_1,\cdots,x_d\right)\\
+S'_{i,j}\left(x_1,\cdots,x_d\right)-T'_{i,j}\left(x_1\cdots,x_d\right)&=T'_{i,j-1}\left(x_1,\cdots,-x_{d-i-j+1},\cdots,x_d\right)
+\end{align}$$
+
+which gives us
+
+$$\begin{equation}
+T'_{i,j}\left(x_1,\cdots,x_d\right)=\frac{1}{2}T'_{i,j}\left(x_1,\cdots,x_d\right)-T'_{i,j}\left(x_1\cdots,-x_{d-i-j+1},\cdots,x_d\right)
+\end{equation}$$
+
+which finally yields
+
+$$\begin{equation}
+T'_{i,d-i}=\frac{1}{2^{d-i}}\sum_{\ell\in\{0, 1\}^{d-i}}(-1)^{h(\ell)}T'_{i, 0}\left((-1)^{\ell_1}x_1,\cdots,(-1)^{\ell_{d-i}}x_{d-i},x_{d-i+1},\cdots,x_d\right)
+\end{equation}$$
+
+with $h$ being the Hamming weight. Putting everything together, we have
+
+$$\begin{align}
+\lambda_{d, t, 2k+b} &= \frac{1}{d^t}T'_{d-2k-b,2k+b}\\
+\lambda_{d, t, 2k+b} &= \frac{1}{d^t2^{2k+b}}\sum_{\ell\in\{0, 1\}^{2k+b}}(-1)^{h(\ell)}T'_{d-2k-b, 0}\left((-1)^{\ell_1},\cdots,(-1)^{\ell_{d-2k-b}},1,\cdots,1\right)\\
+\lambda_{d, t, 2k+b} &= \frac{1}{d^t2^{2k+b}}\sum_{\ell\in\{0, 1\}^{2k+b}}(-1)^{h(\ell)}S_{d-2k-b}\left((-1)^{\ell_1},\cdots,(-1)^{\ell_{d-2k-b}},1,\cdots,1\right)\\
+\lambda_{d, t, 2k+b} &= \frac{1}{d^t2^{d}}\sum_{\ell\in\{0, 1\}^{2k+b}}(-1)^{h(\ell)}\sum_{j\in\{0, 1\}^{d-2k-b}}S_{0}\left((-1)^{\ell_1},\cdots,(-1)^{\ell_{d-2k-b}},(-1)^{j_1},\cdots,(-1)^{j_{d-2k-b}}\right)\\
+\lambda_{d, t, 2k+b} &= \frac{1}{d^t2^{d}}\sum_{\ell\in\{0, 1\}^{2k+b}}(-1)^{h(\ell)}\sum_{j\in\{0, 1\}^{d-2k-b}}(2k+b-2h(\ell)+d-2k-b-2h(j))^t\\
+\lambda_{d, t, 2k+b} &= \frac{1}{d^t2^{d}}\sum_{\ell\in\{0, 1\}^{2k+b}}(-1)^{h(\ell)}\sum_{j\in\{0, 1\}^{d-2k-b}}(d-2h(\ell)-2h(j))^t\\
+\lambda_{d, t, 2k+b} &= \frac{1}{d^t2^{d}}\sum_{\ell\in\{0, 1\}^{2k+b}}(-1)^{h(\ell)}\sum_{j=0}^{d-2k-b}\binom{d-2k-b}{j}(d-2h(\ell)-2j)^t
+\end{align}$$
+
+which finally gives us
+
+$$\begin{equation}
+\label{eq:eigvalbin}
+\lambda_{d, t, 2k+b} = \frac{1}{d^t2^{d}}\sum_{\ell=0}^{2k+b}(-1)^{\ell}\binom{2k+b}{\ell}\sum_{j=0}^{d-2k-b}\binom{d-2k-b}{j}(d-2\ell-2j)^t\,.
+\end{equation}$$
+
+Though this is an improvement over the initial expression, it's still quit ugly. Unfortunately, we don't have much hope to simplify this further. Indeed, suppose $t$ is even and we consider $k=0$. $\lambda_{d, t, 0}$ is then proportional to the $t$-th centered moment of the binomial law with parameters $d$ and $\frac12$, for which no closed-form expression is known.
+
+One other eigenvalue will be of interest however, namely the lowest positive one, $\lambda_{d, t, t}$. In this case, it's not hard to see using the original expression of the eigenvalue that $\lambda_{d, t, t}=\frac{t!}{d^t}$. More generally, note that a lower $k$ is associated to a *larger* eigenvalue.
+
+Finally, note that this eigenvalue is associated to any equivalence class having $2k+b$ elements having an odd cardinality. In particular, its multiplicity is $\binom{d}{2k+b}$.
+
+### Computing the trace distance
+Now that we have the eigenvalues, we are *technically* able to compute the trace distance between $\rho_{d, t, 2}$ and $\Pi_{d, t}$, since they commute, and are thus diagonal in the same basis. However, the eigenvalues of $\rho_{d, t, 2}$ having such an horrible expression, it doesn't seem easy to compute the trace distance.
+
+However, as it turns out, if we restrict $t$ to be "not too large", there's a huge simplification. Note that the rank of $\rho_{d, t, 2}$ is
+
+$$\begin{equation}\mathrm{rk}\left(\rho_{d, t, 2}\right)=\sum_{k=0}^{\left\lfloor\frac{t}{2}\right\rfloor}\binom{d}{2k+b}\end{equation}$$
+
+while the rank of $\Pi_{d, t}$ is $\binom{d+t-1}{t}$. In particular, in the common subspace where they're defined, $\rho_{d, t}$ is not full-rank, meaning that its lowest eigenvalue is $0$. As we've seen earlier, its lowest *positive* eigenvalue is $\frac{t!}{d^t}$.
+
+Since $\rho_{d, t, 2}$ and $\Pi_{d, t}$ commute, we only have to care about the subspaces where the eigenvalue of $\rho_{d, t, 2}$ is lower than that of $\Pi_{d, t}$. What this means is that if
+
+$$\begin{equation}\label{eq:conditionbin}\frac{t!}{d^t}\geqslant\frac{1}{\binom{d+t-1}{t}}\end{equation}$$
+
+holds, then the only eigenvalue of $\rho_{d,t,2}$ that is lower than that of $\rho_{d, t}$ on the same subspace is $0$! In which case the trace distance between the two would be given by
+
+$$\begin{equation}\frac12\\\|\rho_{d,t,2}-\Pi_{d, t}\\\|_1=\frac{\mathrm{rk}\left(\Pi_{d, t}\right)-\mathrm{rk}\left(\rho_{d, t, 2}\right)}{\binom{d+t-1}{t}}\,.\end{equation}$$
+
+Thus, the question becomes: when does Equation \eqref{eq:conditionbin} holds?
 
 ## The other phase states
-TODO
+Now, what about the general case, for an arbitrary $P$? Well, first of all, we can note that for all $P\geqslant t$, $\rho_{d,t,P}=\rho_{d, t, t}$. So, let us restrict ourselves to $P\leqslant t$.
+
+A quick computation shows that $\rho_{d, t, P}$ can still be written as in Equation \eqref{eq:density-matrix-equivalence}. Indeed, we have
+
+$$\begin{equation}\rho_{d, t, P}=\frac{1}{d^t}\sum_{x\sim y}\ketbra{x}{y}\end{equation}$$
+
+with $\sim$ being the equivalence relation defined as
+
+$$\begin{equation}x\sim y\iff \forall i\in[d],n_i(x)=n_i(y)\pmod{P}\end{equation}$$
+
+with $n_i(x)$ being the number of times $i$ appears in $x\in[d]^t$. We are interested in the lowest positive eigenvalue of $\rho_{d, t, P}$. The associated equivalence class will be the one for which $0$ appears $P-1$ times, $1$ appears $P-1$ times, up until $\left\lfloor\frac{t}{P-1}\right\rfloor-1$ appears $P-1$ times, with $\left\lfloor\frac{t}{P-1}\right\rfloor$ appearing $t-(P-1)\left\lfloor\frac{t}{P-1}\right\rfloor$ times. This results in the eigenvalue being
+
+$$\begin{equation}\frac{t!}{d^t[(P-1)!]^{\left\lfloor\frac{t}{P-1}\right\rfloor}\left(t-(P-1)\left\lfloor\frac{t}{P-1}\right\rfloor\right)!}\,.\end{equation}$$
+
+If we write $t=q(P-1)+r$ the euclidean division of $t$ by $P-1$, then this eigenvalue can simply be written as
+
+$$\begin{equation}\frac{t!}{d^t[(P-1)!]^qr!}\,.\end{equation}$$
+
+Note that this lowest positive eigenvalue is lower than that of $\rho_{d, t, 2}$, so that the regimes in which it is larger than $\frac{1}{\binom{d+t-1}{t}}$ is more restricted.
 
 ## Cite this blog post
 ```bibtex

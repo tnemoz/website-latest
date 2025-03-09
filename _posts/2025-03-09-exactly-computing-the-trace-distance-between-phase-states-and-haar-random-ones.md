@@ -286,7 +286,7 @@ $$\begin{align}
 &= \boxed{\frac{t(t-1)}{d}+\Theta\!\left(\frac{t^4}{d^2}\right)}\,.
 \end{align}$$
 
-In order for our approximation to be useful, we thus have to consider $t=o\left(\sqrt{d}\right)$. Thas case $t\sim\alpha\sqrt{d}$ is probably doable by being more precise in the asymptotics of $\frac{\binom{d}{t}}{\binom{d+t-1}{t}}$.
+In order for our approximation to be useful, we thus have to consider $t=o\left(\sqrt{d}\right)$. The case $t\sim\alpha\sqrt{d}$ is probably doable by being more precise in the asymptotics of $\frac{\binom{d}{t}}{\binom{d+t-1}{t}}$.
 
 All in all, we can see that we saved a factor $\frac32$ in the dominant term $\frac{t^2}{d}$ with respect to Brakerski and Shmueli's and Ananth, Gulati, Qian and Yuen's bounds.
 

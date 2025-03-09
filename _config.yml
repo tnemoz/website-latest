@@ -119,10 +119,10 @@ comments:
     issue_term: # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo: # <gh-username>/<repo>
-    repo_id:
-    category:
-    category_id:
+    repo: "tnemoz/website-latest"
+    repo_id: "R_kgDOM_Pe2w"
+    category: "Announcements"
+    category_id: "DIC_kwDOM_Pe284CnvrG"
     mapping: # optional, default to 'pathname'
     strict: # optional, default to '0'
     input_position: # optional, default to 'bottom'

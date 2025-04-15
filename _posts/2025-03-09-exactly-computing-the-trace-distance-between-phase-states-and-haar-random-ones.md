@@ -333,7 +333,7 @@ Note that this lowest positive eigenvalue is lower than that of $\rho_{d, t, 2}$
 @online{NemozBlogPost|{{ page.name | truncate: 15, "" }},
   author={Tristan Nemoz},
   title={% raw %}{{% endraw %}{{ page.title }}{% raw %}}{% endraw %},
-  date={% raw %}{{% endraw %}{{ page.date | date: '%Y-%m-%d' }}{% raw %}}{% endraw %},
+  date={% raw %}{{% endraw %}{{ page.last_modified_at | date: '%Y-%m-%d' }}{% raw %}}{% endraw %},
   url={% raw %}{{% endraw %}{{ page.url | absolute_url }}{% raw %}}{% endraw %},
   urldate={% raw %}{{% endraw %}DATE_TO_BE_REPLACED{% raw %}}{% endraw %}
 }

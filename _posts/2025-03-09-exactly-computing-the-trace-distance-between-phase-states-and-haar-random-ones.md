@@ -18,7 +18,7 @@ The very first thing I've worked on upon starting my PhD is Pseudorandom Quantum
 Even later (yeah I know, my narrative skills are exceptional), I realized that it was in fact possible to exactly compute not only the trace distance exactly, but also the exact decomposition of the associated density matrix! What's more, the proof is arguably even simpler than Ananth *et al.*'s! The problem is that though I find this cool, it's definitely *not* something important enough to deserve a publication, so my advisors advised me (it's in the name) to simply write a blog post about it. So, here I am! First of all, let us start by defining the objects we'll be dealing with.
 
 ### Notations
-Thoughout this post, $d\geqslant2$, $t\geqslant1$ and $P\geqslant1$ will be three natural numbers. We denote by $\omega_P$ the $P$-th root of unity, that is $\omega_P=\mathrm{e}^{\frac{2\mathrm{i}\pi}{P}}$. For a function $f:[d]\to[P]$, we define $\ket{\psi_f}$ to be
+Throughout this post, $d\geqslant2$, $t\geqslant1$ and $P\geqslant1$ will be three natural numbers. We denote by $\omega_P$ the $P$-th root of unity, that is $\omega_P=\mathrm{e}^{\frac{2\mathrm{i}\pi}{P}}$. For a function $f:[d]\to[P]$, we define $\ket{\psi_f}$ to be
 
 $$\begin{equation}\ket{\psi_f}\overset{\text{def}}{=}\frac{1}{\sqrt{d}}\sum_{x=0}^{d-1}\omega_P^{f(x)}\,\ket{x}\,.\end{equation}$$
 
@@ -286,10 +286,27 @@ $$\begin{align}
 &= \boxed{\frac{t(t-1)}{d}+\Theta\!\left(\frac{t^4}{d^2}\right)}\,.
 \end{align}$$
 
-In order for our approximation to be useful, we thus have to consider $t=o\left(\sqrt{d}\right)$. The case $t\sim\alpha\sqrt{d}$ is probably doable by being more precise in the asymptotics of $\frac{\binom{d}{t}}{\binom{d+t-1}{t}}$.
+In order for our approximation to be useful, we thus have to consider $t=o\left(\sqrt{d}\right)$. All in all, we can see that we saved a factor $\frac32$ in the dominant term $\frac{t^2}{d}$ with respect to Brakerski and Shmueli's and Ananth, Gulati, Qian and Yuen's bounds.
 
-All in all, we can see that we saved a factor $\frac32$ in the dominant term $\frac{t^2}{d}$ with respect to Brakerski and Shmueli's and Ananth, Gulati, Qian and Yuen's bounds.
+If $t\sim\alpha\sqrt{d}$ on the other hand, then Stirling's approximation gives us
 
+$$\begin{equation}\frac{d!(d-1)!}{(d-t)!(d+t-1)!}\sim\frac{\sqrt{2\pi d}\left(\frac{d}{\mathrm{e}}\right)^d\sqrt{2\pi(d-1)}\left(\frac{d-1}{\mathrm{e}}\right)^{d-1}}{\sqrt{2\pi(d-t)}\left(\frac{d-t}{\mathrm{e}}\right)^{d-t}\sqrt{2\pi(d+t-1)}\left(\frac{d+t-1}{\mathrm{e}}\right)^{d+t-1}}\,.\end{equation}$$
+
+We can simplify this to
+
+$$\begin{equation}\frac{d!(d-1)!}{(d-t)!(d+t-1)!}\sim\frac{d^d(d-1)^{d-1}}{(d-t)^{d-t}(d+t-1)^{d+t-1}}\,.\end{equation}$$
+
+Now note that we have
+
+$$\begin{equation}\ln\left(\frac{d^d}{(d-t)^{d-t}}\right)=t\ln(d)+t-\frac{\alpha^2}{2}+o(1)\end{equation}$$
+
+and
+
+$$\begin{equation}\ln\left(\frac{(d-1)^{d-1}}{(d+t-1)^{d+t-1}}\right)=-t\ln(d)-t-\frac{\alpha^2}{2}+o(1)\end{equation}$$
+
+which gives us
+
+$$\begin{equation}\frac12\|\rho_{d,t,2}-\Pi_{d, t}\|_1=\boxed{1-\mathrm{e}^{-\alpha^2}+o(1)}\,.\end{equation}$$
 ## A quick note on the other phase states
 Now, what about the general case, for an arbitrary $P$? Well, first of all, we can note that for all $P\geqslant t$, $\rho_{d,t,P}=\rho_{d, t, t}$. So, let us restrict ourselves to $P\leqslant t$.
 
@@ -318,6 +335,15 @@ Note that this lowest positive eigenvalue is lower than that of $\rho_{d, t, 2}$
   title={% raw %}{{% endraw %}{{ page.title }}{% raw %}}{% endraw %},
   date={% raw %}{{% endraw %}{{ page.date | date: '%Y-%m-%d' }}{% raw %}}{% endraw %},
   url={% raw %}{{% endraw %}{{ page.url | absolute_url }}{% raw %}}{% endraw %},
-  urldate={% raw %}{{% endraw %}{{ 'now' | date: '%Y-%m-%d' }}{% raw %}}{% endraw %}
+  urldate={% raw %}{{% endraw %}DATE_TO_BE_REPLACED{% raw %}}{% endraw %}
 }
 ```
+<script>
+    const date = new Date();
+    var s_class_elts = document.getElementsByClassName("s");
+    for (var i = 0; i < s_class_elts.length; i++) {
+        if (s_class_elts[i].innerText == "{DATE_TO_BE_REPLACED}") {
+            s_class_elts[i].innerText = "{" + date.toISOString().split("T")[0] + "}";
+        }
+    }
+</script>

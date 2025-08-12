@@ -17,6 +17,9 @@ The very first thing I've worked on upon starting my PhD is Pseudorandom Quantum
 
 Even later (yeah I know, my narrative skills are exceptional), I realized that it was in fact possible to exactly compute not only the trace distance exactly, but also the exact decomposition of the associated density matrix! What's more, the proof is arguably even simpler than Ananth *et al.*'s! The problem is that though I find this cool, it's definitely *not* something important enough to deserve a publication, so my advisors advised me (it's in the name) to simply write a blog post about it. So, here I am! First of all, let us start by defining the objects we'll be dealing with.
 
+> We ended up including it in [this article](https://arxiv.org/abs/2507.16939) to highlight the improvement of our lower-bound on the number of states required to test for imaginarity with respect to what was already known in the literature.
+{: .prompt-info }
+
 ### Notations
 Throughout this post, $d\geqslant2$, $t\geqslant1$ and $P\geqslant1$ will be three natural numbers. We denote by $\omega_P$ the $P$-th root of unity, that is $\omega_P=\mathrm{e}^{\frac{2\mathrm{i}\pi}{P}}$. For a function $f:[d]\to[P]$, we define $\ket{\psi_f}$ to be
 

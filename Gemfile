@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "jekyll-theme-chirpy", "~> 7.2", ">= 7.2.4"
+gem "jekyll-theme-chirpy", "~> 7.3", ">= 7.3.1"
 
 gem "html-proofer", "~> 5.0", group: :test
 
@@ -13,4 +13,3 @@ end
 
 gem "jekyll-tabs", group: [:jekyll_plugins]
 gem 'jekyll-compose', group: [:jekyll_plugins]
-gem "wdm", "~> 0.2.0", :platforms => [:mingw, :x64_mingw, :mswin]

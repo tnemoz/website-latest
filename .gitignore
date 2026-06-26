@@ -28,3 +28,7 @@ assets/js/dist
 
 # Generated pictures
 assets/img/**/generated-*
+# Hidden system files
+*~
+.DS_Store
+Thumbs.db
